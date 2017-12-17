@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, View, Text, TouchableOpacity,TextInput } from 'react-native';
 import firebase from 'firebase';
 import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
 
@@ -7,10 +7,11 @@ export default class Profile extends Component {
   render() {
     return (
       <View>
-        <TouchableOpacity
-          style={styles.button}>
-          <Text style={styles.buttonText}>Çıkış</Text>
-        </TouchableOpacity>
+      <TextInput
+        style={styles.inputBox}
+        placeholder="Profil"
+        placeholderTextColor="#ffffff"
+      />
       </View>
     );
   }

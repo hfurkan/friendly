@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, View, Text, TouchableOpacity,TextInput } from 'react-native';
 import firebase from 'firebase';
 import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
 
@@ -7,10 +7,11 @@ export default class Settings extends Component {
   render() {
     return (
       <View>
-        <TouchableOpacity
-          style={styles.button}>
-          <Text style={styles.buttonText}>Çıkış</Text>
-        </TouchableOpacity>
+      <TextInput
+        style={styles.button}
+        placeholder="Ayarlar"
+        placeholderTextColor="#ffffff"
+      />
       </View>
     );
   }
@@ -34,5 +35,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#ffffff',
     textAlign: 'center'
-  }
+  },
+   inputBox: {
+      width: 300,
+      backgroundColor: 'rgba(255,255,255,0.3)',
+      borderRadius: 25,
+      paddingHorizontal: 16,
+      fontSize: 16,
+      color: '#ffffff',
+      marginVertical: 10
+    },
 });

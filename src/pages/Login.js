@@ -92,21 +92,27 @@ export default class Login extends Component<{}> {
         },
         {
           label: "Profil",
-          screen: "tab_Home",
+          screen: "Profile",
           icon: iconsMap["v-card"],
           title: "Profile"
         },
          {
             label: "Bildirimler",
-            screen: "tab_Home",
+            screen: "Notifications",
             icon: iconsMap["flash"],
             title: "Bildirimler"
           },
           {
             label: "Ayarlar",
-            screen: "tab_Home",
+            screen: "Settings",
             icon: iconsMap["cog"],
             title: "Ayarlar"
+          },
+          {
+            label: "Konum",
+            screen: "Map",
+            icon: iconsMap["cog"],
+            
           }
       ],
       animationType: Platform.OS === "ios" ? "fade" : "fade",
