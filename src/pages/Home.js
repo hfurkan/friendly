@@ -6,18 +6,22 @@ import Note from './Note';
 
 export default class Home extends Component {
 
-constructor(props){
+constructor(props) {
   super(props);
-  this.state={
+  this.state = {
     noteArray: [],
+
     noteText: '',
-  }
+
+  };
 }
+
   render() {
     let notes = this.state.noteArray.map((val, key) => {
     return <Note key={key} keyval={key} val={val}
           deleteMethod={() => this.deleteNote(key)} />
   });
+
     return (
       <View style={styles.container}>
 
@@ -46,6 +50,12 @@ constructor(props){
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
 
+        <View>
+        <TouchableOpacity /*onPress={this.addYorum.bind(this)}*/ style={styles.button}>
+          <Text style={styles.buttonText}>Yorum Yap</Text>
+        </TouchableOpacity>
+        </View>
+
       </View>
     );
   }
@@ -63,6 +73,7 @@ constructor(props){
       this.setState({ noteText: '' });
     }
     }
+
     deleteNote(key) {
       this.state.noteArray.splice(key, 1);
       this.setState({ noteArray: this.state.noteArray })
@@ -76,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   header: {
-    width: 375,
+    width: 415,
     backgroundColor: '#1c313a',
     justifyContent: 'center',
     borderBottomWidth: 10,
@@ -113,7 +124,7 @@ const styles = StyleSheet.create({
     zIndex: 11,
     right: 10,
     bottom: 75,
-    backgroundColor: 'lightblue',
+    backgroundColor: '#1c313a',
     width: 50,
     height: 50,
     borderRadius: 50,
@@ -124,5 +135,22 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: '#fff',
     fontSize: 24,
-  }
+  },
+   button: {
+        width: 50,
+        backgroundColor: '#1c313a',
+        borderRadius: 50,
+        zIndex: 11,
+        right: -120,
+        bottom: 75,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 5
+      },
+      buttonText: {
+        fontSize: 10,
+        color: '#ffffff',
+        textAlign: 'center'
+      },
 });

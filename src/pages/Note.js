@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput} from 'react-native';
+import { Platform, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import firebase from 'firebase';
 import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
-
+import { iconsMap, iconsLoaded } from '../components/appIcons';
 
 export default class Note extends Component {
 
@@ -15,6 +15,7 @@ export default class Note extends Component {
           <TouchableOpacity onPress={this.props.deleteMethod} style={styles.noteDelete}>
             <Text style={styles.noteDeleteText}>Sil</Text>
           </TouchableOpacity>
+
         </View>
     );
   }
@@ -22,10 +23,16 @@ export default class Note extends Component {
 const styles = StyleSheet.create({
   note: {
     position: 'relative',
-    padding: 20,
+    padding: 40,
     paddingRight: 240,
     borderBottomWidth: 2,
     borderBottomColor: '#ededed'
+  },
+  begen: {
+    padding: 20,
+    paddingRight: 200,
+    borderBottomWidth: 2,
+    borderBottomColor: 'blue'
   },
   noteText: {
     paddingLeft: 20,
@@ -44,5 +51,6 @@ const styles = StyleSheet.create({
   },
   noteDeleteText: {
     color: 'white'
-  }
+  },
+
 });

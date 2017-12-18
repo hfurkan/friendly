@@ -25,6 +25,7 @@ export default class FindMe extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            locationResult: null,
             initialPosition: {
                 latitude: 0,
                 longitude: 0,
@@ -36,33 +37,71 @@ export default class FindMe extends Component {
                 longitude: 0
             }
         }
+        this.findMe = this.findMe.bind(this)
     }
 
-    watchID: ?number = null
+
+
+    componentDidMount() {
+        this.findMe()
+    }
 
     findMe() {
-        Permissions.request('location')
-            .then(response => {
-                if (response === 'authorized') {
-                    navigator.geolocation.getCurrentPosition((position) => {
-                        var lat = parseFloat(position.coords.latitude)
-                        var long = parseFloat(position.coords.longitude)
+        Permissions.check("location").then(response => {
+            if (response != "authorized") {
+                Permissions.request('location').then(response => {
+                    if (response === 'authorized') {
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            var lat = parseFloat(position.coords.latitude)
+                            var long = parseFloat(position.coords.longitude)
 
-                        var initialRegion = {
-                            latitude: lat,
-                            longitude: long,
-                            latitudeDelta: LATITUDE_DELTA,
-                            longitudeDelta: LONGITUDE_DELTA
-                        }
+                            var initialRegion = {
+                                latitude: lat,
+                                longitude: long,
+                                latitudeDelta: LATITUDE_DELTA,
+                                longitudeDelta: LONGITUDE_DELTA
+                            }
 
-                        this.setState({ initialPosition: initialRegion })
-                        this.setState({ markerPosition: initialRegion })
-                    },
-                        (error) => Alert.alert('Hata',
-                            JSON.stringify(error)),
-                        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 })
-                }
-            });
+                            this.setState({ initialPosition: initialRegion })
+                            this.setState({ markerPosition: initialRegion })
+                        },
+                            (error) => Alert.alert('Hata',
+                                JSON.stringify(error)),
+                            { enableHighAccuracy: true, timeout: 100000, maximumAge: 1000 })
+                        this.watchID = navigator.geolocation.watchPosition(position => {
+                            const newRegion = {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                                latitudeDelta: LATITUDE_DELTA,
+                                longitudeDelta: LONGITUDE_DELTA
+                            };
+                            this.setState({ busy: false });
+                            this.onRegionChange(newRegion);
+                        });
+                    }
+                });
+            } else {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    var lat = parseFloat(position.coords.latitude)
+                    var long = parseFloat(position.coords.longitude)
+
+                    var initialRegion = {
+                        latitude: lat,
+                        longitude: long,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA
+                    }
+
+                    this.setState({ initialPosition: initialRegion })
+                    this.setState({ markerPosition: initialRegion })
+                },
+                    (error) => Alert.alert('Hata',
+                        JSON.stringify(error)),
+                    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 })
+            }
+
+        })
+
     }
 
     componentWillUnmount() {
@@ -84,22 +123,13 @@ export default class FindMe extends Component {
                 top: vheight,
                 left: 30,
                 right: 10,
-                backgroundColor: 'transparent',
+                backgroundColor: 'red',
                 alignItems: 'flex-end',
             }
         }
         return (
             <View style={styles.container}>
-                <View style={bbStyle(varTop)}>
-                    <TouchableOpacity
-                        hitSlop={hitSlop}
-                        activeOpacity={0.7}
-                        style={styles.mapButton}
-                        onPress={() => this.findMe()}
-                    >
-                        <Text style={{ fontWeight: 'bold', color: 'black', }}>Konumum</Text>
-                    </TouchableOpacity>
-                </View>
+
                 <MapView
                     style={styles.map}
                     region={this.state.initialPosition}
@@ -110,15 +140,34 @@ export default class FindMe extends Component {
                     rotateEnabled={false}
                 >
                     {
-                    <MapView.Marker
-                        coordinate={this.state.markerPosition}>
-                        <Text style={styles.text}></Text>
-                        <View >
-                            <View style={styles.marker}></View>
-                        </View>
-                    </MapView.Marker>
-                     }
+                        <MapView.Marker
+                            coordinate={this.state.markerPosition}>
+                            <Text style={styles.text}></Text>
+                            <View >
+                                <View style={styles.marker}></View>
+                            </View>
+                        </MapView.Marker>
+                    }
                 </MapView>
+                <View style={[{
+                    elevation: 2,
+                    shadowOpacity: 0.75,
+                    shadowRadius: 1,
+                    shadowColor: 'grey',
+                    shadowOffset: { height: 0, width: 0 }, flex: 1, marginHorizontal: 20, marginBottom: 30,
+                }]}>
+
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={{ alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.7)', padding: 10 }}
+                        onPress={this.findMe()}>
+                        <Text>
+                            KONUMU BUL
+                        </Text>
+
+                    </TouchableOpacity>
+
+                </View>
             </View>
         );
     }
@@ -128,7 +177,7 @@ const styles = StyleSheet.create({
     radius: {
         height: 50,
         width: 50,
-        borderRadius: 50 / 4,
+        borderRadius: 50 / 2,
         overflow: 'hidden',
         backgroundColor: 'rgba(0,122,255,0.1)',
         borderWidth: 1,
@@ -137,22 +186,31 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     marker: {
-        height: 15,
-        width: 15,
-        borderWidth: 1,
+        height: 20,
+        width: 20,
+        borderWidth: 2,
         borderColor: 'white',
-        borderRadius: 50 / 2,
+        borderRadius: 20 / 2,
         overflow: 'hidden',
-        alignItems: 'center',
         backgroundColor: 'dodgerblue'
     },
     container: {
-        flex: 1,
-        backgroundColor: '#EEEEEE',
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        alignItems: "flex-end",
+        justifyContent: "center",
+        flexDirection: "row",
+        backgroundColor: "white",
     },
     map: {
-        flex: 1,
-        zIndex: -1,
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        position: 'absolute'
     },
     text: {
         textAlign: 'center',
