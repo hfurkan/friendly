@@ -16,7 +16,11 @@ export default class Note extends Component {
             <Text style={styles.noteDeleteText}>Sil</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity /*onPress={this.addYorum.bind(this)}*/ style={styles.noteDelete2}>
+            <Text style={styles.noteDeleteText}>Yorum Yap</Text>
+          </TouchableOpacity>
         </View>
+
     );
   }
 }
@@ -26,13 +30,7 @@ const styles = StyleSheet.create({
     padding: 40,
     paddingRight: 240,
     borderBottomWidth: 2,
-    borderBottomColor: '#ededed'
-  },
-  begen: {
-    padding: 20,
-    paddingRight: 200,
-    borderBottomWidth: 2,
-    borderBottomColor: 'blue'
+    borderBottomColor: 'black'
   },
   noteText: {
     paddingLeft: 20,
@@ -41,16 +39,71 @@ const styles = StyleSheet.create({
   },
   noteDelete: {
     position: 'absolute',
-    justifyContent: 'center',
+    zIndex: 11,
+    right: 10,
+    bottom: 60,
+    backgroundColor: '#1c313a',
+    width: 50,
+    height: 50,
+    borderRadius: 50,
     alignItems: 'center',
-    backgroundColor: '#2980b9',
-    padding: 10,
-    top: 10,
-    bottom: 10,
-    right: 10
+    justifyContent: 'center',
+    elevation: 5
   },
   noteDeleteText: {
-    color: 'white'
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
   },
-
+/*  button: {
+       width: 50,
+       backgroundColor: '#1c313a',
+       borderRadius: 50,
+       zIndex: 11,
+       right: -120,
+       bottom: 75,
+       height: 50,
+       alignItems: 'center',
+       justifyContent: 'center',
+       elevation: 5
+     },
+     buttonText: {
+       fontSize: 10,
+       color: '#ffffff',
+       textAlign: 'center'
+     },*/
+     button: {
+       backgroundColor: '#2980b9',
+       borderRadius: 25,
+       marginVertical: 5,
+       paddingVertical: 5,
+       position: 'absolute',
+       justifyContent: 'center',
+       alignItems: 'center',
+       padding: 10,
+       top: 10,
+       bottom: 10,
+       right: 10,
+       width: 40,
+       height: 90,
+     },
+     buttonText: {
+       paddingLeft: 20,
+       borderLeftWidth: 10,
+       borderLeftColor: '#E91E63'
+     },
+     noteDelete2: {
+       position: 'absolute',
+       zIndex: 11,
+       right: 65,
+       bottom: 60,
+       backgroundColor: '#1c313a',
+       width: 50,
+       height: 50,
+       borderRadius: 50,
+       alignItems: 'center',
+       justifyContent: 'center',
+       elevation: 5
+     },
 });

@@ -30,6 +30,19 @@ constructor(props) {
         </View>
 
         <ScrollView style={styles.scrollContainer}>
+        <View style={styles.note}>
+          <Text style={styles.noteText}>2017/12/19</Text>
+          <Text style={styles.noteText}>Deneme Paylaşımı</Text>
+
+          <TouchableOpacity onPress={this.deleteNote.bind(this)} style={styles.noteDelete}>
+            <Text style={styles.noteDeleteText}>Sil</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity /*onPress={this.addYorum.bind(this)}*/ style={styles.noteDelete2}>
+            <Text style={styles.noteDeleteText}>Yorum Yap</Text>
+          </TouchableOpacity>
+
+        </View>
           {notes}
         </ScrollView>
 
@@ -50,11 +63,7 @@ constructor(props) {
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
 
-        <View>
-        <TouchableOpacity /*onPress={this.addYorum.bind(this)}*/ style={styles.button}>
-          <Text style={styles.buttonText}>Yorum Yap</Text>
-        </TouchableOpacity>
-        </View>
+
 
       </View>
     );
@@ -102,7 +111,6 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
     marginBottom: 100
-
   },
   footer: {
     position: 'absolute',
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 24,
   },
-   button: {
+/*   button: {
         width: 50,
         backgroundColor: '#1c313a',
         borderRadius: 50,
@@ -152,5 +160,63 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: '#ffffff',
         textAlign: 'center'
+      },*/
+
+      button: {
+        width: 100,
+        backgroundColor: '#2980b9',
+        borderRadius: 25,
+        marginVertical: 5,
+        paddingVertical: 5
+      },
+      buttonText: {
+        fontSize: 10,
+        fontWeight: '100',
+        color: '#ffffff',
+        textAlign: 'center'
+      },
+      noteText: {
+        paddingLeft: 20,
+        borderLeftWidth: 10,
+        borderLeftColor: '#E91E63'
+      },
+      noteDelete: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 10,
+        bottom: 75,
+        backgroundColor: '#1c313a',
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 5
+      },
+      noteDelete2: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 65,
+        bottom: 75,
+        backgroundColor: '#1c313a',
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 5
+      },
+      noteDeleteText: {
+        color: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
+      },
+      note: {
+        position: 'relative',
+        padding: 40,
+        paddingRight: 240,
+        borderBottomWidth: 2,
+        borderBottomColor: 'black'
       },
 });
