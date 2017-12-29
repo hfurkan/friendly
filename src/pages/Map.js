@@ -21,7 +21,7 @@ const LATITUDE_DELTA = 0.0922
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
 
-export default class FindMe extends Component {
+export default class Map extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -67,7 +67,7 @@ export default class FindMe extends Component {
                         },
                             (error) => Alert.alert('Hata',
                                 JSON.stringify(error)),
-                            { enableHighAccuracy: true, timeout: 100000, maximumAge: 1000 })
+                            { enableHighAccuracy: true, timeout: 3000, maximumAge: 10000 })
                         this.watchID = navigator.geolocation.watchPosition(position => {
                             const newRegion = {
                                 latitude: position.coords.latitude,
@@ -97,7 +97,7 @@ export default class FindMe extends Component {
                 },
                     (error) => Alert.alert('Hata',
                         JSON.stringify(error)),
-                    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 })
+                    { enableHighAccuracy: true, timeout: 30000, maximumAge: 100000 })
             }
 
         })

@@ -9,7 +9,7 @@ import {
   Platform,
   ActivityIndicator
 } from 'react-native';
-import firebase from 'firebase';
+import * as  firebase from 'firebase';
 import Spinner from '../components/spinner';
 import Logo from '../components/Logo';
 import { iconsMap, iconsLoaded } from '../components/appIcons';
@@ -30,16 +30,8 @@ export default class Login extends Component<{}> {
     this.loginFail = this.loginFail.bind(this);
     this.renderButton = this.renderButton.bind(this);
   }
+
   componentWillMount() {
-    firebase.initializeApp(
-      {
-        apiKey: 'AIzaSyDhhNgb1cGC8MQNvgwen6X3IQPwZ6I7rH0',
-        authDomain: 'giris-758a8.firebaseapp.com',
-        databaseURL: 'https://giris-758a8.firebaseio.com',
-        projectId: 'giris-758a8',
-        storageBucket: 'giris-758a8.appspot.com',
-        messagingSenderId: '501599023554'
-      });
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -104,15 +96,16 @@ export default class Login extends Component<{}> {
           },
           {
             label: "Ayarlar",
-            screen: "Settings",
+            screen: "Message",
             icon: iconsMap["cog"],
-            title: "Ayarlar"
+            title: "Message"
           },
           {
             label: "Konum",
             screen: "Map",
             icon: iconsMap["cog"],
-            
+            title: "Konum"
+
           }
       ],
       animationType: Platform.OS === "ios" ? "fade" : "fade",
