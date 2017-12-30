@@ -7,6 +7,7 @@ import Notifications from "../pages/Notifications";
 import Profile from "../pages/Profile";
 import Message from "../pages/Message";
 import Maps from '../pages/Map';
+import Chat from '../pages/Chat';
 
 
 
@@ -19,5 +20,7 @@ export function registerScreens() {
   Navigation.registerComponent("Message", () => Message);
   Navigation.registerComponent("Notifications", () => Notifications);
   Navigation.registerComponent("Map", () => Maps);
+  Navigation.registerComponent("Chat", () => Chat);
   Navigation.registerComponent("Login", () => Login);
+
 }

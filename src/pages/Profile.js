@@ -26,7 +26,7 @@ export default class Profile extends Component {
           source={require('../images/furkan.jpg')}
           />
           </View>
-          <Text style={styles.inputBox}>E-mail   :  h.furkanoztrk@gmail.com</Text>
+          <Text style={styles.inputBox}>E-mail:  h.furkanoztrk@gmail.com</Text>
           <Text style={styles.inputBox}>Kullanıcı Adı    :  furkanoztrk</Text>
           <Text style={styles.inputBox}>Yaşadığı Şehir  :  Konya</Text>
           <Text style={styles.inputBox}>Doğum Tarihi    :  18 Haziran 1996</Text>

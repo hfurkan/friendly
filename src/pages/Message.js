@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TouchableOpacity , TextInput ,FlatList, Image, Dimensions} from 'react-native';
+import { Platform, StyleSheet, View, Text, TouchableOpacity , TextInput, FlatList,Image,Dimensions} from 'react-native';
 import * as firebase from 'firebase';
 import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
 import Login from './Login';
+import Chat from './Chat';
+const {width,height} = Dimensions.get('window');
 
 export default class Mesaj extends Component {
+
   state={
     userList: []
   }
@@ -23,11 +26,39 @@ export default class Mesaj extends Component {
   render() {
     return (
       <View style={styles.container}>
+
+      <View style={{alignItems: 'center', justifyContent: 'center', width: width - 40, paddingBottom: 10}}>
+        <Text style={{color: 'white', fontWeight: 'bold' , fontSize: 22}} > Sohbet Ekranı </Text>
+      </View>
+
       <FlatList
       data={this.state.userList}
-      keyExtractor={(item,index)=>item.first_name}
-      renderItem={({item})=>
-      <Image style={{height:70,width: 70,borderRadius:35}} source={{uri:`https://graph.facebook.com/${item.id}/picture?height=200`}} />
+      keyExtractor={(item, index) => item.first_name}
+      renderItem={({ item }) =>
+
+      <TouchableOpacity onPress={() => this.props.navigator.push({
+        screen: 'Chat',
+        title: 'Chat',
+        //passProps: { user:this.state.user, this.state.profile}
+      })}>
+      <View style={{
+        flex: 1,
+        backgroundColor: 'transparent',
+        flexDirection: 'row',
+        padding: 5,
+        width: width,
+      }}>
+      <Image style={{ height: 70, width: 70, borderRadius: 35 }} source={{ uri: `https://graph.facebook.com/${item.id}/picture?height=200` }} />
+
+        <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+
+      <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}>{item.first_name}</Text>
+
+        </View>
+
+      </View>
+      <View style={{ width: width, height: 1, backgroundColor: 'white' }} />
+      </TouchableOpacity>
     } />
       </View>
     );

@@ -10,6 +10,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import * as  firebase from 'firebase';
+
 import Spinner from '../components/spinner';
 import Logo from '../components/Logo';
 import { iconsMap, iconsLoaded } from '../components/appIcons';
@@ -30,6 +31,10 @@ export default class Login extends Component<{}> {
     this.loginFail = this.loginFail.bind(this);
     this.renderButton = this.renderButton.bind(this);
   }
+  state={
+    showSpinner:true
+  }
+
 
   componentWillMount() {
 
@@ -98,14 +103,19 @@ export default class Login extends Component<{}> {
             label: "Ayarlar",
             screen: "Message",
             icon: iconsMap["cog"],
-            title: "Message"
+            title: "Mesajlar"
           },
           {
             label: "Konum",
             screen: "Map",
             icon: iconsMap["cog"],
             title: "Konum"
-
+          },
+          {
+            label: "Chat",
+            screen: "Chat",
+            icon: iconsMap["cog"],
+            title: "Chat"
           }
       ],
       animationType: Platform.OS === "ios" ? "fade" : "fade",
@@ -122,6 +132,7 @@ export default class Login extends Component<{}> {
         statusBarTextColorSchemeSingleScreen: 'light'
       }
     })
+
   }
 
   loginFail() {
@@ -142,9 +153,55 @@ export default class Login extends Component<{}> {
         style={styles.button}>
         <Text style={styles.buttonText}>Giriş</Text>
       </TouchableOpacity>);
-
-
   }
+
+/*  ComponentDidMount() {
+    firebase.auth().onAuthStateChanged(auth => {
+      if (auth) {
+          this.firebaseRef = firebase.database().ref('users')
+          this.firebaseRef.child(auth.uid).on('value', snap => {
+            const user = snap.val()
+            if (user != null) {
+              this.firebaseRef.child(auth.uid).off('value')
+              this.goToHome(user)
+            }
+          })
+      }
+      else {
+        this.setState({ showSpinner: false })
+      }
+    })
+  }
+  authenticate=(token) =>{
+    const provider = firebase.auth.FacebookAuthProvider
+    const credential = provider.credential(token)
+    return firebase.auth().signInWithCredential(credential)
+  }
+  createUser=(uid, userData) => {
+    const defaults = {
+      uid,
+    }
+    firebase.database().ref('users').child(uid).update({ ...userData, ...defaults })
+  }
+  login=async() => {
+    this.setState({ showSpinner: true })
+    const ADD_ID = '118844592179080'
+    const options = {
+      permissions: ['public_profile'],
+    }
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(ADD_ID, options)
+    if (type === 'success') {
+      const fields =[ 'id', 'first_name']
+      const response= await fetch(`http://graph.facebook.com/me?fields=${fields.toString()}&access_token=${token}`)
+      const userData= await response.json()
+      const {uid}= await this.authenticate(token)
+
+      this.createUser(uid,userData)
+    }
+    else {
+      this.setState({showSpinner: false})
+    }
+  }*/
 
   render() {
 
@@ -169,7 +226,13 @@ export default class Login extends Component<{}> {
             onChangeText={password => this.setState({ password })}
           />
           {this.renderButton()}
-
+          <View>
+          <TouchableOpacity
+            onPress={() => this.login()}
+            style={styles.button}>
+            <Text style={styles.buttonText}>Facebook Login</Text>
+          </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}>
