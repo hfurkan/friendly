@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput, Alert } from 'react-native';
+import { Platform, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput, Alert , Image} from 'react-native';
 import firebase from 'firebase';
 import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
 import Note from './Note';
@@ -26,13 +26,19 @@ constructor(props) {
       <View style={styles.container}>
 
         <View style={styles.header}>
-          <Text style={styles.headerText}> Note </Text>
+          <Text style={styles.headerText}> Paylaşımlar </Text>
         </View>
 
         <ScrollView style={styles.scrollContainer}>
+
         <View style={styles.note}>
-          <Text style={styles.noteText}>2017/12/19</Text>
-          <Text style={styles.noteText}>Deneme Paylaşımı</Text>
+        <Image
+        style={styles.profilepicWrap}
+        source={require('../images/furkan.jpg')}
+        />
+
+          <Text style={styles.noteText2}>Deneme Paylaşımı</Text>
+          <Text style={styles.noteText}>2017/12/19 Ardıçlı Mah. Selçuklu</Text>
 
           <TouchableOpacity onPress={this.deleteNote.bind(this)} style={styles.noteDelete}>
             <Text style={styles.noteDeleteText}>Sil</Text>
@@ -41,6 +47,7 @@ constructor(props) {
           <TouchableOpacity /*onPress={this.addYorum.bind(this)}*/ style={styles.noteDelete2}>
             <Text style={styles.noteDeleteText}>Yorum Yap</Text>
           </TouchableOpacity>
+
 
         </View>
           {notes}
@@ -91,10 +98,23 @@ constructor(props) {
 }
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#455a64',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  profilepicWrap: {
+    position: 'absolute',
+    zIndex: 11,
+    left: 15,
+    bottom: 65,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5
+},
   header: {
     width: 415,
     backgroundColor: '#1c313a',
@@ -109,7 +129,6 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   scrollContainer: {
-    flex: 1,
     marginBottom: 100
   },
   footer: {
@@ -176,15 +195,21 @@ const styles = StyleSheet.create({
         textAlign: 'center'
       },
       noteText: {
-        paddingLeft: 20,
-        borderLeftWidth: 10,
-        borderLeftColor: '#E91E63'
+        padding: 8,
+        paddingLeft: 40,
+        bottom: 1,
+
+      },
+      noteText2: {
+        paddingLeft: 40,
+        color: 'white',
+
       },
       noteDelete: {
         position: 'absolute',
         zIndex: 11,
         right: 10,
-        bottom: 75,
+        bottom: 65,
         backgroundColor: '#1c313a',
         width: 50,
         height: 50,
@@ -197,7 +222,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 11,
         right: 65,
-        bottom: 75,
+        bottom: 65,
         backgroundColor: '#1c313a',
         width: 50,
         height: 50,
@@ -217,6 +242,7 @@ const styles = StyleSheet.create({
         padding: 40,
         paddingRight: 240,
         borderBottomWidth: 2,
-        borderBottomColor: 'black'
+        borderBottomColor: 'black',
+
       },
 });

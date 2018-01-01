@@ -3,6 +3,8 @@ package com.friendly;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.cmcewen.blurview.BlurViewPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -30,7 +32,8 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
             new VectorIconsPackage(),
-            new MapsPackage()
+            new MapsPackage(),
+            new BlurViewPackage()
     );
   }
 

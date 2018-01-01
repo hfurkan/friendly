@@ -43,12 +43,19 @@ export default class Chat extends Component{
     const {user,profile}=this.state
     const avatar = `https://graph.facebook.com/picture?height=80`
     return(
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         <GiftedChat
           messages={this.state.messages}
         //  user={{_id:user.uid,avatar}}
           onSend={this.onSend}
+
           />
+
+            <View>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate('UserProfile', { userProfile: this.state.UserProfile })}>
+            <Text style={{fontWeight:'bold'}}>{this.state.first_name}</Text>
+            </TouchableOpacity>
+            </View>
 
       </View>
     )

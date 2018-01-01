@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import { Platform, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput , Image} from 'react-native';
 import firebase from 'firebase';
 import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
 import { iconsMap, iconsLoaded } from '../components/appIcons';
@@ -9,8 +9,15 @@ export default class Note extends Component {
   render() {
     return (
         <View key={this.props.keyval} style={styles.note}>
-          <Text style={styles.noteText}>{this.props.val.date}</Text>
-          <Text style={styles.noteText}>{this.props.val.note}</Text>
+        <Image
+        style={styles.profilepicWrap}
+        source={require('../images/furkan.jpg')}
+        />
+
+          <Text style={styles.noteText2}>{this.props.val.note}</Text>
+          <Text style={styles.noteText}>{this.props.val.date} Ardıçlı Mah. Selçuklu</Text>
+
+
 
           <TouchableOpacity onPress={this.props.deleteMethod} style={styles.noteDelete}>
             <Text style={styles.noteDeleteText}>Sil</Text>
@@ -33,15 +40,19 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black'
   },
   noteText: {
-    paddingLeft: 20,
-    borderLeftWidth: 10,
-    borderLeftColor: '#E91E63'
+    padding: 8,
+    paddingLeft: 40,
+    bottom: 1
+  },
+  noteText2: {
+    paddingLeft: 40,
+    color: 'white',
   },
   noteDelete: {
     position: 'absolute',
     zIndex: 11,
     right: 10,
-    bottom: 60,
+    bottom: 65,
     backgroundColor: '#1c313a',
     width: 50,
     height: 50,
@@ -97,11 +108,23 @@ const styles = StyleSheet.create({
        position: 'absolute',
        zIndex: 11,
        right: 65,
-       bottom: 60,
+       bottom: 65,
        backgroundColor: '#1c313a',
        width: 50,
        height: 50,
        borderRadius: 50,
+       alignItems: 'center',
+       justifyContent: 'center',
+       elevation: 5
+     },
+     profilepicWrap: {
+       position: 'absolute',
+       zIndex: 11,
+       left: 15,
+       bottom: 65,
+       width: 50,
+       height: 50,
+       borderRadius: 25,
        alignItems: 'center',
        justifyContent: 'center',
        elevation: 5

@@ -116,6 +116,12 @@ export default class Login extends Component<{}> {
             screen: "Chat",
             icon: iconsMap["cog"],
             title: "Chat"
+          },
+          {
+            label: "UserProfile",
+            screen: "UserProfile",
+            icon: iconsMap["cog"],
+            title: "UserProfile"
           }
       ],
       animationType: Platform.OS === "ios" ? "fade" : "fade",
