@@ -10,11 +10,15 @@ import {
   ActivityIndicator
 } from 'react-native';
 import * as  firebase from 'firebase';
+import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
+import FBSDK, {LoginManager} from 'react-native-fbsdk';
+import { iconsMap, iconsLoaded } from '../components/appIcons';
+
 
 import Spinner from '../components/spinner';
 import Logo from '../components/Logo';
-import { iconsMap, iconsLoaded } from '../components/appIcons';
-import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
+
+
 
 
 export default class Login extends Component<{}> {
@@ -208,6 +212,20 @@ export default class Login extends Component<{}> {
       this.setState({showSpinner: false})
     }
   }*/
+  fbAuth(){
+      LoginManager.logInWithReadPermissions(['public_profile']).then(function(result){
+        if(result.isCancelled){
+          console.log('Login başarısız');
+        }
+        else {
+          console.log('Login başarılı'+ result.grantedPermissions.toString());
+        }
+      },
+      function(error) {
+        console.log('An error occured:' + error);
+      })
+  }
+
 
   render() {
 
@@ -234,7 +252,7 @@ export default class Login extends Component<{}> {
           {this.renderButton()}
           <View>
           <TouchableOpacity
-            onPress={() => this.login()}
+            onPress={() => this.fbAuth()}
             style={styles.button}>
             <Text style={styles.buttonText}>Facebook Login</Text>
           </TouchableOpacity>

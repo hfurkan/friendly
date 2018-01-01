@@ -3,6 +3,7 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 import com.android.build.OutputFile
 
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -95,16 +96,16 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "com.friendly"
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        renderscriptTargetApi 24
+        renderscriptTargetApi 26 //bu ne için?kanki bu blurview vardı onun için 26 yapsak. zaten o 24 dü uyumlu olsun diye 27 yaptım :)
         renderscriptSupportModeEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -139,14 +140,19 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:24.0.1"
+    compile "com.android.support:appcompat-v7:23.0.1"
+    compile 'com.facebook.android:facebook-android-sdk:4.14.+'
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-navigation')
     compile project(':react-native-vector-icons')
     compile project(':react-native-maps')
     compile project(':react-native-blur')
+    compile project(':react-native-fbsdk')
+
+
 }
 
 // Run this once to be able to run the application with BUCK
