@@ -18,9 +18,12 @@ import com.facebook.CallbackManager;
 import com.facebook.appevents.AppEventsLogger;
 import java.util.Arrays;
 import java.util.List;
+import android.content.Intent;
 
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.reactnativenavigation.controllers.ActivityCallbacks;
+
 
 public class MainApplication extends NavigationApplication implements ReactApplication {
     private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
@@ -29,53 +32,49 @@ public class MainApplication extends NavigationApplication implements ReactAppli
         return mCallbackManager;
     }
 
-    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-        @Override
-        public boolean getUseDeveloperSupport() {
-            return BuildConfig.DEBUG;
-        }
+   @Override
+   public String getJSMainModuleName() {
+    return "index";
+    }
+       @Override
+    public boolean isDebug() {
+        return BuildConfig.DEBUG;
+    }
 
-        @Override
+ @Override
+    public List<ReactPackage> createAdditionalReactPackages() {
+        return getPackages();
+    }
+     
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
-                    new MainReactPackage(),
                     new FBSDKPackage(mCallbackManager),
                     new VectorIconsPackage(),
                     new MapsPackage(),
                     new BlurViewPackage()
             );
         }
-    };
+   
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        // If you want to use AppEventsLogger to log events.
-        AppEventsLogger.activateApp(this);
-    }
+    // @Override
+    // public void onCreate() {
+    //     super.onCreate();
+    //     FacebookSdk.sdkInitialize(getApplicationContext());
+    //     // If you want to use AppEventsLogger to log events.
+    //     AppEventsLogger.activateApp(this);
+    // }
     //yukarıdaki çalışmazsa aşağıdakini dene bir de
-  //  @Override
-  //  public void onCreate() {
-   //     super.onCreate();
-   //     setActivityCallbacks(new ActivityCallbacks() {
-    //        @Override
-   //         public void onActivityResult(int requestCode, int resultCode, Intent data) {
-   //             mCallbackManager.onActivityResult(requestCode, resultCode, data);
-   //         }
-  //      });
-  //      FacebookSdk.sdkInitialize(getApplicationContext());
-  //      SoLoader.init(this, /* native exopackage */ false);
-  //  }
+   @Override
+   public void onCreate() {
+       super.onCreate();
+       setActivityCallbacks(new ActivityCallbacks() {
+           @Override
+           public void onActivityResult(int requestCode, int resultCode, Intent data) {
+               mCallbackManager.onActivityResult(requestCode, resultCode, data);
+           }
+       });
+       FacebookSdk.sdkInitialize(getApplicationContext());
+       SoLoader.init(this, /* native exopackage */ false);
+   }
 
-    @Override
-    public boolean isDebug() {
-        return false;
-    }
-
-    @Nullable
-    @Override
-    public List<ReactPackage> createAdditionalReactPackages() {
-        return null;
-    }
 }

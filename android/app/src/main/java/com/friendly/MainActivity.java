@@ -11,9 +11,9 @@ public class MainActivity extends SplashActivity {
      * This is used to schedule rendering of the component.
      */
 
-    protected String getMainComponentName() {
-        return "friendly";
-    }
+    // protected String getMainComponentName() {
+    //     return "friendly";
+    // }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -36,11 +36,7 @@ export default class Profile extends Component {
       <BlurView
       tint="white"
       intensity={50}
-      style={...StyleSheet.absoluteFillObject,{position: "absolute",
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,}}/>
+      style={styles.absolute}/>
           <Image
           style={{ height: 120, width: 120, borderRadius: 60 }}
           source={require('../images/furkan.jpg')}

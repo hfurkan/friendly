@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import * as  firebase from 'firebase';
 import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
-import FBSDK, {LoginManager} from 'react-native-fbsdk';
+import FBSDK, {LoginManager, GraphRequest, GraphRequestManager} from 'react-native-fbsdk';
 import { iconsMap, iconsLoaded } from '../components/appIcons';
 
 
@@ -34,6 +34,7 @@ export default class Login extends Component<{}> {
     this.goToHome = this.goToHome.bind(this);
     this.loginFail = this.loginFail.bind(this);
     this.renderButton = this.renderButton.bind(this);
+    this.fbAuth = this.fbAuth.bind(this);
   }
   state={
     showSpinner:true
@@ -213,17 +214,19 @@ export default class Login extends Component<{}> {
     }
   }*/
   fbAuth(){
-      LoginManager.logInWithReadPermissions(['public_profile']).then(function(result){
-        if(result.isCancelled){
-          console.log('Login başarısız');
+      LoginManager.logInWithReadPermissions(['public_profile']).then(
+        () => {
+
+          const infoRequest = new GraphRequest(
+            "/me?fields=id,name,last_name,link,email,first_name,gender", 
+            null,
+            this.goToHome,
+        );
+        new GraphRequestManager().addRequest(infoRequest).start();
         }
-        else {
-          console.log('Login başarılı'+ result.grantedPermissions.toString());
-        }
-      },
-      function(error) {
-        console.log('An error occured:' + error);
-      })
+      )
+     
+
   }
 
 
