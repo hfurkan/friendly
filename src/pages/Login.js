@@ -32,7 +32,6 @@ export default class Login extends Component<{}> {
     this.loginSucces = this.loginSucces.bind(this);
     this.loginSucces1 = this.loginSucces1.bind(this);
     this.goToHome = this.goToHome.bind(this);
-    this.loginFail = this.loginFail.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.fbAuth = this.fbAuth.bind(this);
   }
@@ -69,9 +68,7 @@ export default class Login extends Component<{}> {
         .then(() => {
          this.loginSucces()
         })
-        .catch(() => {
-         this.loginFail()
-        });
+        
     }
   }
 
@@ -101,20 +98,21 @@ export default class Login extends Component<{}> {
          {
             label: "Bildirimler",
             screen: "Notifications",
-            icon: iconsMap["flash"],
+            icon: iconsMap["bell"],
             title: "Bildirimler"
           },
           {
-            label: "Ayarlar",
+            label: "Mesajlar",
             screen: "Message",
-            icon: iconsMap["cog"],
+            icon: iconsMap["message"],
             title: "Mesajlar"
           },
           {
             label: "Konum",
             screen: "Map",
-            icon: iconsMap["cog"],
-            title: "Konum"
+            icon: iconsMap["map"],
+            title: "Konum",
+            color:"red"
           },
           {
             label: "Chat",
@@ -131,8 +129,8 @@ export default class Login extends Component<{}> {
       ],
       animationType: Platform.OS === "ios" ? "fade" : "fade",
       tabsStyle: {
-        tabBarButtonColor: "#797979",
-        tabBarSelectedButtonColor: 'blue',
+        tabBarButtonColor: "#fff",
+        tabBarSelectedButtonColor: 'fff',
         tabBarBackgroundColor: "white",
         tabFontFamily: "Avenir-Medium",
         tabBarTextFontFamily: "Avenir-Medium",
@@ -146,16 +144,6 @@ export default class Login extends Component<{}> {
 
   }
 
-  loginFail() {
-    console.log('hatalı');
-    Alert.alert(
-      'Mesaj',
-      'Kullanıcı Adı veya Şifre hatalı!!',
-      [
-        { text: 'Tamam', onPress: () => null }
-      ]
-    );
-  }
 
   renderButton() {
     return (

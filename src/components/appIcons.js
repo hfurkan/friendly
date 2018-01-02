@@ -17,7 +17,10 @@ const icons = {
     "switch": [Entypo, 30, 'red'],
     "flash": [Entypo, 30, 'red'],
     "cog": [Entypo, 30, 'red'],
-    "heart": [Entypo, 30, 'red']
+    "heart": [Entypo, 30, 'red'],
+    "bell":[Entypo, 30, 'blue'],
+    "message": [Entypo, 30, 'blue'],
+    "map":[Entypo,30,'blue'],
 
 
 };

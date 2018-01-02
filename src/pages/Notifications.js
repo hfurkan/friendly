@@ -6,13 +6,8 @@ import { Navigation, ScreenVisibilityListener } from "react-native-navigation";
 export default class Notifications extends Component {
   render() {
     return (
-      <View>
-      <TextInput
-        style={styles.inputBox}
-        placeholder="Bildirimler"
-        placeholderTextColor="#ffffff"
-
-      />
+      <View style={styles.container}>
+      <Text style={styles.Text}>Henüz bir bildiriminiz bulunmamaktır.</Text>
       </View>
     );
   }
@@ -24,26 +19,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button: {
-    width: 300,
-    backgroundColor: '#1c313a',
-    borderRadius: 25,
-    marginVertical: 10,
-    paddingVertical: 11
-  },
-  buttonText: {
+  Text: {
     fontSize: 16,
     fontWeight: '500',
     color: '#ffffff',
     textAlign: 'center'
   },
-  inputBox: {
-    width: 300,
-    backgroundColor: 'rgba(255,255,255,0.3)',
-    borderRadius: 25,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: '#ffffff',
-    marginVertical: 10
-  }
 });

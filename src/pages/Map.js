@@ -52,7 +52,7 @@ export default class Map extends Component {
                 Permissions.request('location').then(response => {
                     if (response === 'authorized') {
                         navigator.geolocation.getCurrentPosition((position) => {
-                            var lat = parseFloat(position.coords.latitude)
+                     var lat = parseFloat(position.coords.latitude)
                             var long = parseFloat(position.coords.longitude)
 
                             var initialRegion = {
@@ -97,7 +97,7 @@ export default class Map extends Component {
                 },
                     (error) => Alert.alert('Hata',
                         JSON.stringify(error)),
-                    { enableHighAccuracy: true, timeout: 30000, maximumAge: 100000 })
+                    { enableHighAccuracy: true, timeout: 3000, maximumAge: 10000 })
             }
 
         })
@@ -160,7 +160,9 @@ export default class Map extends Component {
                     <TouchableOpacity
                         activeOpacity={0.5}
                         style={{ alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.7)', padding: 10 }}
-                        onPress={this.findMe()}>
+                        onPress={this.findMe()}
+                        >
+                       
                         <Text>
                             KONUMU BUL
                         </Text>
